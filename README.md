@@ -1,130 +1,120 @@
-<p align="center">
-  <img src="assets/logo.jpg" alt="Eliteflix Logo">
-</p>
-<h1 align="center">
-  <b>Ashish Sharma Bot</b>
-</h1>
+# Heroku Deploy
 
+**Important Notes**
+1. Generate all your private files from master branch (token.pickle, config.env, drive_folder, cookies.txt, accounts, .netrc) since the generators not available in heroku branch but you should add the private files in heroku branch not in master or use variables links in `config.env`.
+2. Don't add variables in heroku Environment, you can only add `CONFIG_FILE_URL`.
+3. Don't deploy using hmanager or github integration.
+4. To avoid idling fill `BASE_URL_OF_BOT` or you can use [corn-job](http://cron-job.org) to ping your Heroku app.
+5. If you want to edit anything in code, so u should edit [h-code branch](https://github.com/anasty17/mirror-leech-telegram-bot/tree/h-code). After that u should add fill `UPSTREAM_REPO` of your fork and leave `UPSTREAM_BRANCH` empty since it's by default `h-code`.
+6. This branch use megasdkrest and latest version of qBittorrent.
 
-- Telegram Account- @ashishsharmalegend
-- Bot Username For test- @vincenzo_here_bot
+------
 
-## Features
+## Deploy With CLI
 
-- [x] Auto Filter
-- [x] Manual Filter
-- [x] IMDB
-- [x] Admin Commands
-- [x] Broadcast
-- [x] Index
-- [x] IMDB search
-- [x] Inline Search
-- [x] Random pics
-- [x] ids and User info 
-- [x] Stats, Users, Chats, Ban, Unban, Leave, Disable, Channel
-- [x] Spelling Check Feature
-- [x] File Store
-## Variables
-
-Read [this](https://telegram.dog/TeamEvamaria/12) before you start messing up with your edits.
-
-### Required Variables
-* `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
-* `API_ID`: Get this value from [telegram.org](https://my.telegram.org/apps)
-* `API_HASH`: Get this value from [telegram.org](https://my.telegram.org/apps)
-* `CHANNELS`: Username or ID of channel or group. Separate multiple IDs by space
-* `ADMINS`: Username or ID of Admin. Separate multiple Admins by space
-* `DATABASE_URI`: [mongoDB](https://www.mongodb.com) URI. Get this value from [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/1G1XwEOnxxo)
-* `DATABASE_NAME`: Name of the database in [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/1G1XwEOnxxo)
-* `LOG_CHANNEL` : A channel to log the activities of bot. Make sure bot is an admin in the channel.
-### Optional Variables
-* `PICS`: Telegraph links of images to show in start message.( Multiple images can be used separated by space )
-* `FILE_STORE_CHANNEL`: Channel from were file store links of posts should be made.Separate multiple IDs by space
-* Check [info.py](https://github.com/EvamariaTG/evamaria/blob/master/info.py) for more
-
-
-## Deploy
-You can deploy this bot anywhere.
-
-<i>**[Watch Deploying Tutorial...](https://youtu.be/1G1XwEOnxxo)**</i>
-
-<details><summary>Deploy To Heroku</summary>
-<p>
-<br>
-<a href="https://telegram.dog/XTZ_HerokuBot?start=RXZhbWFyaWFURy9FdmFNYXJpYSBtYXN0ZXI">
-  <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
-</a>
-</p>
-</details>
-
-<details><summary>Deploy To VPS</summary>
-<p>
-<pre>
-git clone https://github.com/EvamariaTG/evamaria
-# Install Packages
-pip3 install -r requirements.txt
-Edit info.py with variables as given below then run bot
-python3 bot.py
-</pre>
-</p>
-</details>
-
-
-## Commands
+- Clone this repo:
 ```
-• /logs - to get the rescent errors
-• /stats - to get status of files in db.
-* /filter - add manual filters
-* /filters - view filters
-* /connect - connect to PM.
-* /disconnect - disconnect from PM
-* /del - delete a filter
-* /delall - delete all filters
-* /deleteall - delete all index(autofilter)
-* /delete - delete a specific file from index.
-* /info - get user info
-* /id - get tg ids.
-* /imdb - fetch info from imdb.
-• /users - to get list of my users and ids.
-• /chats - to get list of the my chats and ids 
-• /index  - to add files from a channel
-• /leave  - to leave from a chat.
-• /disable  -  do disable a chat.
-* /enable - re-enable chat.
-• /ban  - to ban a user.
-• /unban  - to unban a user.
-• /channel - to get list of total connected channels
-• /broadcast - to broadcast a message to all Eva Maria users
-• /batch - to create link for multiple posts
-• /link - to create link for one post
+git clone https://github.com/anasty17/mirror-leech-telegram-bot mirrorbot/ && cd mirrorbot
 ```
-## Support
-[![telegram badge](https://img.shields.io/badge/Telegram-Group-30302f?style=flat&logo=telegram)](https://telegram.me/eliteflix_chat)
-[![telegram badge](https://img.shields.io/badge/Telegram-Channel-30302f?style=flat&logo=telegram)](https://telegram.me/eliteflixbyashishsharma2)
+- Switch to heroku branch
+  - **NOTE**: Don't commit changes in master branch. If you have committed your changes in master branch and after that you switched to heroku branch, the new added files(private files) will `NOT` appear in heroku branch.
+```
+git checkout heroku
+```
+- After adding your private files
+```
+git add . -f
+```
+- Commit your changes
+```
+git commit -m token
+```
+- Login to heroku
+```
+heroku login
+```
+- Create heroku app
+```
+heroku create --region us YOURAPPNAME
+```
+- Add remote
+```
+heroku git:remote -a YOURAPPNAME
+```
+- Create container
+```
+heroku stack:set container
+```
+- Push to heroku
+```
+git push heroku heroku:master -f
+```
 
-## Credits 
-* [![EvaMaria-Devs](https://img.shields.io/static/v1?label=EvaMaria&message=devs&color=critical)](https://telegram.dog/EvaMariaDevs)
+------
 
+### Extras
 
-## Thanks to 
- - Thanks To Dan For His Awesome [Library](https://github.com/pyrogram/pyrogram)
- - Thanks To Mahesh For His Awesome [Media-Search-bot](https://github.com/Mahesh0253/Media-Search-bot)
- - Thanks To [Trojanz](https://github.com/trojanzhex) for Their Awesome [Unlimited Filter Bot](https://github.com/TroJanzHEX/Unlimited-Filter-Bot) And [AutoFilterBoT](https://github.com/trojanzhex/auto-filter-bot)
- - Thanks To All Everyone In This Journey
+- To create heroku-postgresql database
+```
+heroku addons:create heroku-postgresql
+```
+- To delete the app
+```
+heroku apps:destroy YOURAPPNAME
+```
+- To restart dyno
+```
+heroku restart
+```
+- To turn off dyno
+```
+heroku ps:scale web=0
+```
+- To turn on dyno
+```
+heroku ps:scale web=1
+```
+- To set heroku variable
+```
+heroku config:set VARNAME=VARTEXT
+```
+- To get live logs
+```
+heroku logs -t
+```
 
-### Note
+------
 
-[Note To A So Called Dev](https://telegram.dog/subin_works/203): 
+## Deploy With Github Workflow
 
-Kanging this codes and and editing a few lines and releasing a V.x  or an [alpha](https://telegram.dog/subin_works/204), beta , gama branches of your repo won't make you a Developer.
-Fork the repo and edit as per your needs.
+1. Go to Repository Settings -> Secrets
 
-## Disclaimer
-[![GNU Affero General Public License 2.0](https://www.gnu.org/graphics/agplv3-155x51.png)](https://www.gnu.org/licenses/agpl-3.0.en.html#header)    
-Licensed under [GNU AGPL 2.0.](https://github.com/EvamariaTG/evamaria/blob/master/LICENSE)
-Selling The Codes To Other People For Money Is *Strictly Prohibited*.
+![Secrets](https://telegra.ph/file/9d6ed26f8981c2d2f226c.jpg)
 
-## Inspiration
-This is an attempt to create a clone of a BOAT made out of [banana trees 🌳](https://telegram.dog/GetTGLink/4187)
+2. Add the below Required Variables one by one by clicking New Repository Secret every time.
 
-[![For Vaza](https://telegra.ph/file/e743b0c8a04252774bac2.jpg)](https://telegra.ph/file/98342dc186fd7484cba91.mp4 "Oru Kootam Vazhakalk samarpikkunnu")
+   - HEROKU_EMAIL: Heroku Account Email Id in which the above app will be deployed
+   - HEROKU_API_KEY: Your Heroku API key, get it from https://dashboard.heroku.com/account
+   - HEROKU_APP_NAME: Your Heroku app name, Name Must be unique
+   - CONFIG_FILE_URL: Copy [This](https://raw.githubusercontent.com/anasty17/mirror-leech-telegram-bot/master/config_sample.env) in any text editor.Remove the _____REMOVE_THIS_LINE_____=True line and fill the variables. For details about config you can see Here. Go to https://gist.github.com and paste your config data. Rename the file to config.env then create secret gist. Click on Raw, copy the link. This will be your CONFIG_FILE_URL. Refer to below images for clarity.
+
+![Steps from 1 to 3](https://telegra.ph/file/2a27cf34dc0bdba885de9.jpg)
+
+![Step 4](https://telegra.ph/file/fb3b92a1d2c3c1b612ad0.jpg)
+
+![Step 5](https://telegra.ph/file/f0b208e4ea980b575dbe2.jpg)
+
+3. Remove commit id from raw link to be able to change variables without updating the CONFIG_FILE_URL in secrets. Should be in this form: https://gist.githubusercontent.com/username/gist-id/raw/config.env
+   - Before: https://gist.githubusercontent.com/anasty17/8cce4a4b4e7f4ea47e948b2d058e52ac/raw/19ba5ab5eb43016422193319f28bc3c7dfb60f25/config.env
+   - After: https://gist.githubusercontent.com/anasty17/8cce4a4b4e7f4ea47e948b2d058e52ac/raw/config.env
+
+4. Add all your private files in this branch or use variables links in `config.env`.
+
+5. After adding all the above Required Variables go to Github Actions tab in your repository.
+   - Select Manually Deploy to Heroku workflow as shown below:
+
+![Select Manual Deploy](https://telegra.ph/file/cff1c24de42c271b23239.jpg)
+
+6. Choose `heroku` branch and click on Run workflow
+
+![Run Workflow](https://telegra.ph/file/f44c7465d58f9f046328b.png)
